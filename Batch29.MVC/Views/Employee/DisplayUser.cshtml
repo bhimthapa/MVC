@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Batch29.MVC.Models.LoginData>
+
+@{ 
+    WebGrid gd = new WebGrid(source:Model);
+    @gd.GetHtml();
+
+}
