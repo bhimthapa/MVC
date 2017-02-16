@@ -11,6 +11,7 @@ namespace Batch29.MVC.Controllers
     {
         public ActionResult Login()
         {
+        
             return View();
         }
         //Strongly type view
@@ -28,14 +29,35 @@ namespace Batch29.MVC.Controllers
             int x = 10;
             return View();
         }
-        public ActionResult AuthenticateUserST(LoginData data)
+        public ActionResult AuthenticateUserST(LoginData data, ActionType myActionType)
         {
+            if(ActionType.LoginST==myActionType)
+            {
+
+            }
+            else if(ActionType.Add == myActionType)
+            {
+
+            }
+            else if (ActionType.Update == myActionType)
+            {
+
+            }
+            else if (ActionType.Delete == myActionType)
+            {
+
+            }
             if (!ModelState.IsValid)
             {
                 return View("LoginST",data);
             }
 
-            if(data.UserId=="abc" && data.Password=="123456")
+            var db = new Users();
+            bool isAuthorize = db.UserLogins
+                .Where(x => x.UserName == data.UserId && x.Password == data.Password)
+                .Any();
+
+            if(isAuthorize)
             {
                 return View("Home"); 
             }
@@ -56,6 +78,14 @@ namespace Batch29.MVC.Controllers
             return View(DataAccessTier.GetAllUsers());
         }
 
+
+    }
+    public enum ActionType
+    {
+        Add,
+        Update,
+        Delete,
+        LoginST
 
     }
 }
